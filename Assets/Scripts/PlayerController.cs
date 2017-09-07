@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        ResetInputVariables();
+
     }
 
     void Idle() {
@@ -417,6 +419,12 @@ public class PlayerController : MonoBehaviour {
         horizontalDirection *= -1;
         scale.x *= -1;
         gameObject.transform.localScale = scale;
+
+    }
+
+    void ResetInputVariables() {
+
+        _inputJump = false;
 
     }
 
