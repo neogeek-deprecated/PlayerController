@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour {
     private readonly float horizontalSpeed = 6.0f;
     private readonly float jumpSpeed = 14.0f;
     private readonly int maxAvalibleJumps = 2;
+    private readonly float raycastDistance = 1.0f;
     private readonly WaitForSeconds horizontalMovementDelay = new WaitForSeconds(0.5f);
 
     private Vector2 velocity = Vector2.zero;
@@ -456,7 +457,7 @@ public class PlayerController : MonoBehaviour {
 
     Vector2 GetNextPlatformPoint() {
 
-        RaycastHit2D[] platforms = Physics2D.RaycastAll(platformTrigger.position, -gameObject.transform.up, Mathf.Infinity, platformLayerMask);
+        RaycastHit2D[] platforms = Physics2D.RaycastAll(platformTrigger.position, -gameObject.transform.up, raycastDistance, platformLayerMask);
 
         foreach (RaycastHit2D platform in platforms) {
 
@@ -478,7 +479,7 @@ public class PlayerController : MonoBehaviour {
 
     Vector2 GetNextWallPoint() {
 
-        RaycastHit2D[] walls = Physics2D.RaycastAll(wallTrigger.position, wallTrigger.right * horizontalDirection, Mathf.Infinity, wallLayerMask);
+        RaycastHit2D[] walls = Physics2D.RaycastAll(wallTrigger.position, wallTrigger.right * horizontalDirection, raycastDistance, wallLayerMask);
 
         foreach (RaycastHit2D wall in walls) {
 
