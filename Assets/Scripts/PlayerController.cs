@@ -472,7 +472,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        return gameObject.transform.position;
+        return gameObject.transform.position + Vector3.down;
 
     }
 
@@ -495,7 +495,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        return gameObject.transform.position;
+        return gameObject.transform.position + Vector3.right * horizontalDirection;
 
     }
 
