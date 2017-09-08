@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
-        gameObject.transform.position = CalculatePlayerMovement(gameObject.transform.position, platformPoint, wallPoint);
+        gameObject.transform.position = Move();
 
         if (gameObject.transform.position.x == wallPoint.x) {
 
@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
-        gameObject.transform.position = CalculatePlayerMovement(gameObject.transform.position, platformPoint, wallPoint);
+        gameObject.transform.position = Move();
 
         if (inputJumpsAvalible > 0 && inputJump) {
 
@@ -309,7 +309,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
-        gameObject.transform.position = CalculatePlayerMovement(gameObject.transform.position, platformPoint, wallPoint);
+        gameObject.transform.position = Move();
 
         if (inputJumpsAvalible > 0 && inputJump) {
 
@@ -360,7 +360,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
-        gameObject.transform.position = CalculatePlayerMovement(gameObject.transform.position, platformPoint, wallPoint);
+        gameObject.transform.position = Move();
 
         if (inputJump) {
 
@@ -420,6 +420,40 @@ public class PlayerController : MonoBehaviour {
         horizontalDirection *= -1;
         scale.x *= -1;
         gameObject.transform.localScale = scale;
+
+    }
+
+    Vector2 Move() {
+
+        Bounds colliderBounds = gameObject.GetComponent<BoxCollider2D>().bounds;
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(colliderBounds.min.x, colliderBounds.center.y), Vector2.left, raycastDistance, wallLayerMask);
+        RaycastHit2D hitRight = Physics2D.Raycast(new Vector2(colliderBounds.max.x, colliderBounds.center.y), Vector2.right, raycastDistance, wallLayerMask);
+        RaycastHit2D hitBottom = Physics2D.Raycast(new Vector2(colliderBounds.center.x, colliderBounds.min.y), Vector2.down, raycastDistance, platformLayerMask);
+
+        Vector2 position = gameObject.transform.position;
+
+        position += velocity * Time.deltaTime;
+
+        if (hitLeft) {
+
+            position.x = Mathf.Max(position.x, hitLeft.collider.bounds.max.x + colliderBounds.extents.y);
+
+        }
+
+        if (hitRight) {
+
+            position.x = Mathf.Min(position.x, hitRight.collider.bounds.min.x - colliderBounds.extents.y);
+
+        }
+
+        if (hitBottom) {
+
+            position.y = Mathf.Max(position.y, hitBottom.collider.bounds.max.y + colliderBounds.extents.y);
+
+        }
+
+        return position;
 
     }
 
