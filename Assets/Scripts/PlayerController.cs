@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour {
     private bool inputHorizontalEnabled = true;
     private int inputJumpsAvalible = 0;
 
+    private Vector2 hitLeft;
+    private Vector2 hitRight;
+    private Vector2 hitBottom;
+
     private bool _inputJump = false;
     private bool inputJump {
 
@@ -93,6 +97,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+
+        UpdateHitVectors();
 
         switch (state) {
 
@@ -423,33 +429,69 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    Vector2 Move() {
+    void UpdateHitVectors() {
 
         Bounds colliderBounds = gameObject.GetComponent<BoxCollider2D>().bounds;
 
-        RaycastHit2D hitLeft = Physics2D.Raycast(new Vector2(colliderBounds.min.x, colliderBounds.center.y), Vector2.left, raycastDistance, wallLayerMask);
-        RaycastHit2D hitRight = Physics2D.Raycast(new Vector2(colliderBounds.max.x, colliderBounds.center.y), Vector2.right, raycastDistance, wallLayerMask);
-        RaycastHit2D hitBottom = Physics2D.Raycast(new Vector2(colliderBounds.center.x, colliderBounds.min.y), Vector2.down, raycastDistance, platformLayerMask);
+        RaycastHit2D hitLeftRay = Physics2D.Raycast(new Vector2(colliderBounds.min.x, colliderBounds.center.y), Vector2.left, raycastDistance, wallLayerMask);
+        RaycastHit2D hitRightRay = Physics2D.Raycast(new Vector2(colliderBounds.max.x, colliderBounds.center.y), Vector2.right, raycastDistance, wallLayerMask);
+        RaycastHit2D hitBottomRay = Physics2D.Raycast(new Vector2(colliderBounds.center.x, colliderBounds.min.y), Vector2.down, raycastDistance, platformLayerMask);
+
+        Vector2 position = gameObject.transform.position;
+
+        if (hitLeftRay) {
+
+            hitLeft = new Vector2(hitLeftRay.collider.bounds.max.x + colliderBounds.extents.x, 0);
+
+        } else {
+
+            hitLeft = Vector2.zero;
+
+        }
+
+        if (hitRightRay) {
+
+            hitRight = new Vector2(hitRightRay.collider.bounds.min.x - colliderBounds.extents.x, 0);
+
+        } else {
+
+            hitRight = Vector2.zero;
+
+        }
+
+        if (hitBottomRay) {
+
+            hitBottom = new Vector2(0, hitBottomRay.collider.bounds.max.y + colliderBounds.extents.y);
+
+        } else {
+
+            hitBottom = Vector2.zero;
+
+        }
+
+    }
+
+    Vector2 Move() {
 
         Vector2 position = gameObject.transform.position;
 
         position += velocity * Time.deltaTime;
 
-        if (hitLeft) {
+        if (hitLeft.x != 0) {
 
-            position.x = Mathf.Max(position.x, hitLeft.collider.bounds.max.x + colliderBounds.extents.y);
-
-        }
-
-        if (hitRight) {
-
-            position.x = Mathf.Min(position.x, hitRight.collider.bounds.min.x - colliderBounds.extents.y);
+            position.x = Mathf.Max(position.x, hitLeft.x);
 
         }
 
-        if (hitBottom) {
+        if (hitRight.x != 0) {
 
-            position.y = Mathf.Max(position.y, hitBottom.collider.bounds.max.y + colliderBounds.extents.y);
+            position.x = Mathf.Min(position.x, hitRight.x);
+
+        }
+
+        if (hitBottom.y != 0) {
+
+            position.y = Mathf.Max(position.y, hitBottom.y);
 
         }
 
@@ -460,32 +502,6 @@ public class PlayerController : MonoBehaviour {
     void ResetInputVariables() {
 
         _inputJump = false;
-
-    }
-
-    Vector2 CalculatePlayerMovement(Vector2 originalPosition, Vector2 platformPoint, Vector2 wallPoint) {
-
-        Vector2 newPosition = new Vector2(originalPosition.x, originalPosition.y);
-
-        newPosition = (Vector2) newPosition + velocity * Time.deltaTime;
-
-        if (platformPoint.y < originalPosition.y) {
-
-            newPosition.y = Mathf.Max(newPosition.y, platformPoint.y);
-
-        }
-
-        if (velocity.x > 0 && wallPoint.x > originalPosition.x) {
-
-            newPosition.x = Mathf.Min(newPosition.x, wallPoint.x);
-
-        } else if (velocity.x < 0 && wallPoint.x < originalPosition.x) {
-
-            newPosition.x = Mathf.Max(newPosition.x, wallPoint.x);
-
-        }
-
-        return newPosition;
 
     }
 
