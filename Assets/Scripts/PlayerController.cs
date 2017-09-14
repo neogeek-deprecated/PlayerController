@@ -88,11 +88,19 @@ public class PlayerController : MonoBehaviour {
 
         if (inputHorizontalEnabled) {
 
-            inputHorizontal = Input.GetAxisRaw("Horizontal");
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0) {
+
+                inputHorizontal = Mathf.Sign(Input.GetAxisRaw("Horizontal"));
+
+            } else {
+
+                inputHorizontal = 0;
+
+            }
 
         }
 
-        inputJump = Input.GetKeyDown(KeyCode.Space);
+        inputJump = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Joystick1Button16);
 
     }
 
