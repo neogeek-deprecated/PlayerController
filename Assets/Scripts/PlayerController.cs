@@ -145,7 +145,6 @@ public class PlayerController : MonoBehaviour {
 
         velocity = Vector2.zero;
 
-        Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
@@ -163,7 +162,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (platformPoint.y < platformTrigger.position.y) {
+        if (hitBottom.y < platformTrigger.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
