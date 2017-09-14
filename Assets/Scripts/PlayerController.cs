@@ -195,7 +195,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
         gameObject.transform.position = Move();
@@ -208,7 +207,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (platformPoint.y < platformTrigger.position.y) {
+        if (hitBottom.y < platformTrigger.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
@@ -252,7 +251,6 @@ public class PlayerController : MonoBehaviour {
 
         velocity.y -= gravity * Time.deltaTime;
 
-        Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
         gameObject.transform.position = Move();
@@ -277,7 +275,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (gameObject.transform.position.y == platformPoint.y) {
+        if (gameObject.transform.position.y == hitBottom.y) {
 
             state = STATE.PLAYER_RUNNING;
 
@@ -311,7 +309,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
         gameObject.transform.position = Move();
@@ -362,7 +359,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        Vector2 platformPoint = GetNextPlatformPoint();
         Vector2 wallPoint = GetNextWallPoint();
 
         gameObject.transform.position = Move();
@@ -383,7 +379,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (gameObject.transform.position.y == platformPoint.y) {
+        if (gameObject.transform.position.y == hitBottom.y) {
 
             state = STATE.PLAYER_IDLE;
 
@@ -501,28 +497,6 @@ public class PlayerController : MonoBehaviour {
     void ResetInputVariables() {
 
         _inputJump = false;
-
-    }
-
-    Vector2 GetNextPlatformPoint() {
-
-        RaycastHit2D[] platforms = Physics2D.RaycastAll(platformTrigger.position, -gameObject.transform.up, raycastDistance, platformLayerMask);
-
-        foreach (RaycastHit2D platform in platforms) {
-
-            Vector2 platformPoint = platform.point - (Vector2)(platformTrigger.localPosition * gameObject.transform.localScale.y);
-
-            if (RoundFloat(platform.point.y) == RoundFloat(platform.collider.bounds.max.y)) {
-
-                Debug.DrawLine(gameObject.transform.position, platformPoint, Color.green);
-
-                return RoundVector2(platformPoint);
-
-            }
-
-        }
-
-        return gameObject.transform.position + Vector3.down;
 
     }
 
