@@ -153,16 +153,14 @@ public class PlayerController : MonoBehaviour {
 
         velocity = Vector2.zero;
 
-        Vector2 wallPoint = GetNextWallPoint();
-
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
             Flip();
 
         }
 
-        if ((inputHorizontal == 1 && wallPoint.x > gameObject.transform.position.x) ||
-            (inputHorizontal == -1 && wallPoint.x < gameObject.transform.position.x)) {
+        if ((inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > gameObject.transform.position.x)) ||
+            (inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < gameObject.transform.position.x))) {
 
             state = STATE.PLAYER_RUNNING;
 
@@ -203,11 +201,10 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        Vector2 wallPoint = GetNextWallPoint();
-
         gameObject.transform.position = Move();
 
-        if (gameObject.transform.position.x == wallPoint.x) {
+        if (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
+            hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x) {
 
             state = STATE.PLAYER_IDLE;
 
@@ -259,8 +256,6 @@ public class PlayerController : MonoBehaviour {
 
         velocity.y -= gravity * Time.deltaTime;
 
-        Vector2 wallPoint = GetNextWallPoint();
-
         gameObject.transform.position = Move();
 
         if (inputJumpsAvalible > 0 && inputJump) {
@@ -275,7 +270,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (gameObject.transform.position.x == wallPoint.x) {
+        if (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
+            hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x) {
 
             state = STATE.PLAYER_WALL_SLIDE;
 
@@ -317,8 +313,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        Vector2 wallPoint = GetNextWallPoint();
-
         gameObject.transform.position = Move();
 
         if (inputJumpsAvalible > 0 && inputJump) {
@@ -333,7 +327,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (gameObject.transform.position.x == wallPoint.x) {
+        if (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
+            hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x) {
 
             state = STATE.PLAYER_WALL_SLIDE;
 
@@ -366,8 +361,6 @@ public class PlayerController : MonoBehaviour {
             velocity.y = wallSlideSpeed;
 
         }
-
-        Vector2 wallPoint = GetNextWallPoint();
 
         gameObject.transform.position = Move();
 
@@ -439,7 +432,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 rayCastSize = colliderBounds.size * 0.95f;
 
         RaycastHit2D hitLeftRay = Physics2D.BoxCast(
-            new Vector2(colliderBounds.min.x, colliderBounds.center.y),
+            new Vector2(colliderBounds.min.x - colliderBounds.extents.x, colliderBounds.center.y),
             rayCastSize,
             0f,
             Vector2.left,
@@ -448,7 +441,7 @@ public class PlayerController : MonoBehaviour {
         );
 
         RaycastHit2D hitRightRay = Physics2D.BoxCast(
-            new Vector2(colliderBounds.max.x, colliderBounds.center.y),
+            new Vector2(colliderBounds.max.x + colliderBounds.extents.x, colliderBounds.center.y),
             rayCastSize,
             0f,
             Vector2.right,
@@ -530,44 +523,6 @@ public class PlayerController : MonoBehaviour {
     void ResetInputVariables() {
 
         _inputJump = false;
-
-    }
-
-    Vector2 GetNextWallPoint() {
-
-        RaycastHit2D[] walls = Physics2D.RaycastAll(wallTrigger.position, wallTrigger.right * horizontalDirection, raycastDistance, wallLayerMask);
-
-        foreach (RaycastHit2D wall in walls) {
-
-            Vector2 wallPoint = wall.point - (Vector2)(wallTrigger.localPosition * gameObject.transform.localScale.x);
-
-            if (RoundFloat(wall.point.x) == RoundFloat(wall.collider.bounds.min.x) ||
-                RoundFloat(wall.point.x) == RoundFloat(wall.collider.bounds.max.x)) {
-
-                Debug.DrawLine(gameObject.transform.position, wallPoint, Color.green);
-
-                return RoundVector2(wallPoint);
-
-            }
-
-        }
-
-        return gameObject.transform.position + Vector3.right * horizontalDirection;
-
-    }
-
-    Vector2 RoundVector2(Vector2 vector, int digits = 2) {
-
-        vector.x = RoundFloat(vector.x, digits);
-        vector.y = RoundFloat(vector.y, digits);
-
-        return vector;
-
-    }
-
-    float RoundFloat(float value, int digits = 2) {
-
-        return (float) Math.Round((double) value, digits);
 
     }
 
