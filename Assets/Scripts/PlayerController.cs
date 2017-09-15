@@ -60,15 +60,7 @@ public class PlayerController : MonoBehaviour {
 
         get {
 
-            if (_inputJump) {
-
-                _inputJump = false;
-
-                return true;
-
-            }
-
-            return false;
+            return _inputJump;
 
         }
 
