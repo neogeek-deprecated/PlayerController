@@ -436,9 +436,34 @@ public class PlayerController : MonoBehaviour {
 
         Bounds colliderBounds = gameObject.GetComponent<BoxCollider2D>().bounds;
 
-        RaycastHit2D hitLeftRay = Physics2D.Raycast(new Vector2(colliderBounds.min.x, colliderBounds.center.y), Vector2.left, raycastDistance, wallLayerMask);
-        RaycastHit2D hitRightRay = Physics2D.Raycast(new Vector2(colliderBounds.max.x, colliderBounds.center.y), Vector2.right, raycastDistance, wallLayerMask);
-        RaycastHit2D hitBottomRay = Physics2D.Raycast(new Vector2(colliderBounds.center.x, colliderBounds.min.y), Vector2.down, raycastDistance, platformLayerMask);
+        Vector2 rayCastSize = colliderBounds.size * 0.95f;
+
+        RaycastHit2D hitLeftRay = Physics2D.BoxCast(
+            new Vector2(colliderBounds.min.x, colliderBounds.center.y),
+            rayCastSize,
+            0f,
+            Vector2.left,
+            raycastDistance,
+            wallLayerMask
+        );
+
+        RaycastHit2D hitRightRay = Physics2D.BoxCast(
+            new Vector2(colliderBounds.max.x, colliderBounds.center.y),
+            rayCastSize,
+            0f,
+            Vector2.right,
+            raycastDistance,
+            wallLayerMask
+        );
+
+        RaycastHit2D hitBottomRay = Physics2D.BoxCast(
+            new Vector2(colliderBounds.center.x, colliderBounds.min.y - colliderBounds.extents.y),
+            rayCastSize,
+            0f,
+            Vector2.down,
+            raycastDistance,
+            platformLayerMask
+        );
 
         Vector2 position = gameObject.transform.position;
 
