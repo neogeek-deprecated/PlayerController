@@ -372,6 +372,15 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        if (!hitRight.HasValue || hitRight.Value.x != gameObject.transform.position.x ||
+            !hitLeft.HasValue || hitLeft.Value.x != gameObject.transform.position.x) {
+
+            state = STATE.PLAYER_FALLING;
+
+            return;
+
+        }
+
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
             state = STATE.PLAYER_WALL_DISMOUNT;
