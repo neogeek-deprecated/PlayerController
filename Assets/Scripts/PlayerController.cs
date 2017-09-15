@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2? hitLeft;
     private Vector2? hitRight;
+    private Vector2? hitTop;
     private Vector2? hitBottom;
 
     private bool _inputJump = false;
@@ -328,6 +329,16 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        if (hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) {
+
+            velocity.y = 0;
+
+            state = STATE.PLAYER_FALLING;
+
+            return;
+
+        }
+
         if (velocity.y <= 0) {
 
             state = STATE.PLAYER_FALLING;
@@ -450,6 +461,15 @@ public class PlayerController : MonoBehaviour {
             wallLayerMask
         );
 
+        RaycastHit2D hitTopRay = Physics2D.BoxCast(
+            new Vector2(colliderBounds.center.x, colliderBounds.max.y + colliderBounds.extents.y),
+            rayCastSize,
+            0f,
+            Vector2.up,
+            raycastDistance,
+            wallLayerMask
+        );
+
         RaycastHit2D hitBottomRay = Physics2D.BoxCast(
             new Vector2(colliderBounds.center.x, colliderBounds.min.y - colliderBounds.extents.y),
             rayCastSize,
@@ -481,6 +501,16 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        if (hitTopRay) {
+
+            hitTop = new Vector2(0, hitTopRay.collider.bounds.min.y - colliderBounds.extents.y);
+
+        } else {
+
+            hitTop = null;
+
+        }
+
         if (hitBottomRay) {
 
             hitBottom = new Vector2(0, hitBottomRay.collider.bounds.max.y + colliderBounds.extents.y);
@@ -508,6 +538,12 @@ public class PlayerController : MonoBehaviour {
         if (hitRight.HasValue) {
 
             position.x = Mathf.Min(position.x, hitRight.Value.x);
+
+        }
+
+        if (hitTop.HasValue) {
+
+            position.y = Mathf.Min(position.y, hitTop.Value.y);
 
         }
 
@@ -546,6 +582,7 @@ public class PlayerController : MonoBehaviour {
         Gizmos.color = Color.green;
         Gizmos.DrawCube(new Vector2(colliderBounds.min.x - colliderBounds.extents.x, colliderBounds.center.y), colliderBounds.size * 0.95f);
         Gizmos.DrawCube(new Vector2(colliderBounds.max.x + colliderBounds.extents.x, colliderBounds.center.y), colliderBounds.size * 0.95f);
+        Gizmos.DrawCube(new Vector2(colliderBounds.center.x, colliderBounds.max.y + colliderBounds.extents.y), colliderBounds.size * 0.95f);
         Gizmos.DrawCube(new Vector2(colliderBounds.center.x, colliderBounds.min.y - colliderBounds.extents.y), colliderBounds.size * 0.95f);
 
     }
