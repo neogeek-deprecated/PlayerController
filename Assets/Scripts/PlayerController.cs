@@ -372,8 +372,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!hitRight.HasValue || hitRight.Value.x != gameObject.transform.position.x ||
-            !hitLeft.HasValue || hitLeft.Value.x != gameObject.transform.position.x) {
+        if ((!hitRight.HasValue || hitRight.Value.x != gameObject.transform.position.x) &&
+            (!hitLeft.HasValue || hitLeft.Value.x != gameObject.transform.position.x)) {
 
             state = STATE.PLAYER_FALLING;
 
