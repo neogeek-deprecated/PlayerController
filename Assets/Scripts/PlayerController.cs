@@ -51,9 +51,9 @@ public class PlayerController : MonoBehaviour {
     private bool inputHorizontalEnabled = true;
     private int inputJumpsAvalible = 0;
 
-    private Vector2 hitLeft;
-    private Vector2 hitRight;
-    private Vector2 hitBottom;
+    private Vector2? hitLeft;
+    private Vector2? hitRight;
+    private Vector2? hitBottom;
 
     private bool _inputJump = false;
     private bool inputJump {
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.y < platformTrigger.position.y) {
+        if (hitBottom.HasValue && hitBottom.Value.y < platformTrigger.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.y < platformTrigger.position.y) {
+        if (!hitBottom.HasValue || hitBottom.HasValue && hitBottom.Value.y < platformTrigger.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (gameObject.transform.position.y == hitBottom.y) {
+        if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
 
             state = STATE.PLAYER_RUNNING;
 
@@ -387,7 +387,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (gameObject.transform.position.y == hitBottom.y) {
+        if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
 
             state = STATE.PLAYER_IDLE;
 
@@ -448,7 +448,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitLeft = Vector2.zero;
+            hitLeft = null;
 
         }
 
@@ -458,7 +458,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitRight = Vector2.zero;
+            hitRight = null;
 
         }
 
@@ -468,7 +468,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitBottom = Vector2.zero;
+            hitBottom = null;
 
         }
 
@@ -480,21 +480,21 @@ public class PlayerController : MonoBehaviour {
 
         position += velocity * Time.deltaTime;
 
-        if (hitLeft.x != 0) {
+        if (hitLeft.HasValue) {
 
-            position.x = Mathf.Max(position.x, hitLeft.x);
-
-        }
-
-        if (hitRight.x != 0) {
-
-            position.x = Mathf.Min(position.x, hitRight.x);
+            position.x = Mathf.Max(position.x, hitLeft.Value.x);
 
         }
 
-        if (hitBottom.y != 0) {
+        if (hitRight.HasValue) {
 
-            position.y = Mathf.Max(position.y, hitBottom.y);
+            position.x = Mathf.Min(position.x, hitRight.Value.x);
+
+        }
+
+        if (hitBottom.HasValue) {
+
+            position.y = Mathf.Max(position.y, hitBottom.Value.y);
 
         }
 
