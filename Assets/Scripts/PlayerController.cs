@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    public Transform platformTrigger;
-    public LayerMask platformLayerMask;
-
-    public Transform wallTrigger;
-    public LayerMask wallLayerMask;
+    public LayerMask leftLayerMask;
+    public LayerMask rightLayerMask;
+    public LayerMask topLayerMask;
+    public LayerMask bottomLayerMask;
 
     public enum STATE {
         PLAYER_IDLE,
@@ -161,7 +160,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.HasValue && hitBottom.Value.y < platformTrigger.position.y) {
+        if (hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
@@ -205,7 +204,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!hitBottom.HasValue || hitBottom.HasValue && hitBottom.Value.y < platformTrigger.position.y) {
+        if (!hitBottom.HasValue || hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
@@ -449,7 +448,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.left,
             raycastDistance,
-            wallLayerMask
+            leftLayerMask
         );
 
         RaycastHit2D hitRightRay = Physics2D.BoxCast(
@@ -458,7 +457,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.right,
             raycastDistance,
-            wallLayerMask
+            rightLayerMask
         );
 
         RaycastHit2D hitTopRay = Physics2D.BoxCast(
@@ -467,7 +466,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.up,
             raycastDistance,
-            wallLayerMask
+            topLayerMask
         );
 
         RaycastHit2D hitBottomRay = Physics2D.BoxCast(
@@ -476,7 +475,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.down,
             raycastDistance,
-            platformLayerMask
+            bottomLayerMask
         );
 
         Vector2 position = gameObject.transform.position;
