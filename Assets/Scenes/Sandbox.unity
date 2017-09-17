@@ -817,6 +817,26 @@ Prefab:
       propertyPath: platformLayerMask.m_Bits
       value: 768
       objectReference: {fileID: 0}
+    - target: {fileID: 114343094270122428, guid: 1c178768e4d174d60babc6b0b29b8e56,
+        type: 2}
+      propertyPath: leftLayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 114343094270122428, guid: 1c178768e4d174d60babc6b0b29b8e56,
+        type: 2}
+      propertyPath: rightLayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 114343094270122428, guid: 1c178768e4d174d60babc6b0b29b8e56,
+        type: 2}
+      propertyPath: topLayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 114343094270122428, guid: 1c178768e4d174d60babc6b0b29b8e56,
+        type: 2}
+      propertyPath: bottomLayerMask.m_Bits
+      value: 768
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c178768e4d174d60babc6b0b29b8e56, type: 2}
   m_IsPrefabParent: 0
