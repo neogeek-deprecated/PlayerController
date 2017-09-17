@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJump) {
 
-            inputJumpsAvalible -= 1;
+            JumpingEnter();
 
             state = STATE.PLAYER_JUMPING;
 
@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJump) {
 
-            inputJumpsAvalible -= 1;
+            JumpingEnter();
 
             state = STATE.PLAYER_JUMPING;
 
@@ -245,9 +245,7 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJumpsAvalible > 0 && inputJump) {
 
-            inputJumpsAvalible -= 1;
-
-            velocity.y = 0;
+            JumpingEnter();
 
             state = STATE.PLAYER_JUMPING;
 
@@ -274,6 +272,14 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void JumpingEnter() {
+
+        inputJumpsAvalible -= 1;
+
+        velocity.y = jumpSpeed;
+
+    }
+
     void Jumping() {
 
         if (Mathf.Abs(inputHorizontal) > 0) {
@@ -288,23 +294,13 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (velocity.y == 0) {
-
-            velocity.y = jumpSpeed;
-
-        } else {
-
-            velocity.y -= gravity * Time.deltaTime;
-
-        }
+        velocity.y -= gravity * Time.deltaTime;
 
         gameObject.transform.position = Move();
 
         if (inputJumpsAvalible > 0 && inputJump) {
 
-            inputJumpsAvalible -= 1;
-
-            velocity.y = 0;
+            JumpingEnter();
 
             state = STATE.PLAYER_JUMPING;
 
@@ -369,7 +365,7 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJump && inputHorizontal != 0) {
 
-            velocity.y = jumpSpeed;
+            JumpingEnter();
 
             state = STATE.PLAYER_JUMPING;
 
@@ -411,10 +407,9 @@ public class PlayerController : MonoBehaviour {
         StopCoroutine("DisallowHorizontalMovement");
         StartCoroutine("DisallowHorizontalMovement");
 
-        velocity.x = horizontalDirection * horizontalSpeed;
-        velocity.y = jumpSpeed;
+        inputHorizontal = horizontalDirection * -1;
 
-        inputJumpsAvalible -= 1;
+        JumpingEnter();
 
         state = STATE.PLAYER_JUMPING;
 
