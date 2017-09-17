@@ -366,7 +366,7 @@ public class PlayerController : MonoBehaviour {
 
         gameObject.transform.position = Move();
 
-        if (inputJump) {
+        if (inputJump && inputHorizontal == 0) {
 
             state = STATE.PLAYER_WALL_JUMP;
 
