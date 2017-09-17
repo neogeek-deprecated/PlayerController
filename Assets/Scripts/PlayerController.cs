@@ -408,7 +408,8 @@ public class PlayerController : MonoBehaviour {
 
         Flip();
 
-        StartCoroutine(DisallowHorizontalMovement());
+        StopCoroutine("DisallowHorizontalMovement");
+        StartCoroutine("DisallowHorizontalMovement");
 
         velocity.x = horizontalDirection * horizontalSpeed;
         velocity.y = jumpSpeed;
