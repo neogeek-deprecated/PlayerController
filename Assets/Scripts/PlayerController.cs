@@ -225,6 +225,12 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void FallingEnter() {
+
+        velocity.y = 0;
+
+    }
+
     void Falling() {
 
         if (Mathf.Abs(inputHorizontal) > 0) {
@@ -319,7 +325,7 @@ public class PlayerController : MonoBehaviour {
 
         if (hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) {
 
-            velocity.y = 0;
+            FallingEnter();
 
             state = STATE.PLAYER_FALLING;
 
@@ -420,7 +426,8 @@ public class PlayerController : MonoBehaviour {
         Flip();
 
         velocity.x = inputHorizontal * horizontalSpeed;
-        velocity.y = 0;
+
+        FallingEnter();
 
         state = STATE.PLAYER_FALLING;
 
