@@ -262,6 +262,8 @@ public class PlayerController : MonoBehaviour {
         if (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
             hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x) {
 
+            WallSlideEnter();
+
             state = STATE.PLAYER_WALL_SLIDE;
 
             return;
@@ -317,6 +319,8 @@ public class PlayerController : MonoBehaviour {
         if (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
             hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x) {
 
+            WallSlideEnter();
+
             state = STATE.PLAYER_WALL_SLIDE;
 
             return;
@@ -343,11 +347,15 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void WallSlide() {
+    void WallSlideEnter() {
 
         inputJumpsAvalible = maxAvalibleJumps;
 
         velocity.x = 0;
+
+    }
+
+    void WallSlide() {
 
         if (velocity.y > 0) {
 
