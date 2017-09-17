@@ -374,6 +374,16 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        if (inputJump && inputHorizontal != 0) {
+
+            velocity.y = jumpSpeed;
+
+            state = STATE.PLAYER_JUMPING;
+
+            return;
+
+        }
+
         if ((!hitRight.HasValue || hitRight.Value.x != gameObject.transform.position.x) &&
             (!hitLeft.HasValue || hitLeft.Value.x != gameObject.transform.position.x)) {
 
