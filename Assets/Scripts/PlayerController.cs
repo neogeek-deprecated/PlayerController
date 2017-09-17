@@ -421,7 +421,7 @@ public class PlayerController : MonoBehaviour {
         StopCoroutine("DisallowHorizontalMovement");
         StartCoroutine("DisallowHorizontalMovement");
 
-        inputHorizontal = horizontalDirection * -1;
+        velocity.x = horizontalDirection * horizontalSpeed;
 
         JumpingEnter();
 
