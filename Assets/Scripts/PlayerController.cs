@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour {
 
         gameObject.transform.position = Move();
 
-        if (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
+        if (inputHorizontal == 0 || hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x ||
             hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x) {
 
             state = STATE.PLAYER_IDLE;
@@ -204,14 +204,6 @@ public class PlayerController : MonoBehaviour {
             JumpingEnter();
 
             state = STATE.PLAYER_JUMPING;
-
-            return;
-
-        }
-
-        if (inputHorizontal == 0) {
-
-            state = STATE.PLAYER_IDLE;
 
             return;
 
@@ -321,17 +313,9 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) {
+        if ((hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) || velocity.y <= 0) {
 
             FallingEnter();
-
-            state = STATE.PLAYER_FALLING;
-
-            return;
-
-        }
-
-        if (velocity.y <= 0) {
 
             state = STATE.PLAYER_FALLING;
 
