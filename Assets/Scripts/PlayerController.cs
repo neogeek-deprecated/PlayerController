@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y) {
+        if (!hitBottom.HasValue || hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y) {
 
             state = STATE.PLAYER_FALLING;
 
