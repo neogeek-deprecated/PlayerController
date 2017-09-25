@@ -121,8 +121,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        ResetInputVariables();
-
     }
 
     void Idle() {
@@ -266,6 +264,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     void JumpingEnter() {
+
+        _inputJump = false;
 
         inputJumpsAvalible -= 1;
 
@@ -531,12 +531,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         return position;
-
-    }
-
-    void ResetInputVariables() {
-
-        _inputJump = false;
 
     }
 
