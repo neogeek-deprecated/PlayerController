@@ -92,9 +92,13 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Idle() {
+    void IdleEnter() {
 
         inputJumpsAvalible = maxAvalibleJumps;
+
+    }
+
+    void Idle() {
 
         velocity = Vector2.zero;
 
@@ -131,9 +135,13 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Running() {
+    void RunningEnter() {
 
         inputJumpsAvalible = maxAvalibleJumps;
+
+    }
+
+    void Running() {
 
         velocity.x = inputHorizontal * horizontalSpeed;
         velocity.y = 0;
