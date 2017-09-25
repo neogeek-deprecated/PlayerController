@@ -86,40 +86,7 @@ public class PlayerController : MonoBehaviour {
 
         UpdateHitVectors();
 
-        switch (state) {
-
-            case STATE.Idle:
-                Idle();
-                break;
-
-            case STATE.Running:
-                Running();
-                break;
-
-            case STATE.Falling:
-                Falling();
-                break;
-
-            case STATE.Jumping:
-                Jumping();
-                break;
-
-            case STATE.WallSlide:
-                WallSlide();
-                break;
-
-            case STATE.WallJump:
-                WallJump();
-                break;
-
-            case STATE.WallDismount:
-                WallDismount();
-                break;
-
-            default:
-                break;
-
-        }
+        Invoke(state.ToString(), 0);
 
     }
 
