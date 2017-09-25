@@ -10,17 +10,17 @@ public class PlayerController : MonoBehaviour {
     public LayerMask bottomLayerMask;
 
     public enum STATE {
-        PLAYER_IDLE,
-        PLAYER_RUNNING,
-        PLAYER_FALLING,
-        PLAYER_JUMPING,
-        PLAYER_WALL_SLIDE,
-        PLAYER_WALL_JUMP,
-        PLAYER_WALL_DISMOUNT
+        Idle,
+        Running,
+        Falling,
+        Jumping,
+        WallSlide,
+        WallJump,
+        WallDismount
     }
 
     [SerializeField]
-    private STATE _state = STATE.PLAYER_IDLE;
+    private STATE _state = STATE.Idle;
 
     public STATE state {
         get {
@@ -88,31 +88,31 @@ public class PlayerController : MonoBehaviour {
 
         switch (state) {
 
-            case STATE.PLAYER_IDLE:
+            case STATE.Idle:
                 Idle();
                 break;
 
-            case STATE.PLAYER_RUNNING:
+            case STATE.Running:
                 Running();
                 break;
 
-            case STATE.PLAYER_FALLING:
+            case STATE.Falling:
                 Falling();
                 break;
 
-            case STATE.PLAYER_JUMPING:
+            case STATE.Jumping:
                 Jumping();
                 break;
 
-            case STATE.PLAYER_WALL_SLIDE:
+            case STATE.WallSlide:
                 WallSlide();
                 break;
 
-            case STATE.PLAYER_WALL_JUMP:
+            case STATE.WallJump:
                 WallJump();
                 break;
 
-            case STATE.PLAYER_WALL_DISMOUNT:
+            case STATE.WallDismount:
                 WallDismount();
                 break;
 
@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour {
         if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > gameObject.transform.position.x) ||
             inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < gameObject.transform.position.x)) {
 
-            state = STATE.PLAYER_RUNNING;
+            state = STATE.Running;
 
             return;
 
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour {
 
         if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y)) {
 
-            state = STATE.PLAYER_FALLING;
+            state = STATE.Falling;
 
             return;
 
@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour {
 
             JumpingEnter();
 
-            state = STATE.PLAYER_JUMPING;
+            state = STATE.Jumping;
 
             return;
 
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour {
         if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
             (hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x)) {
 
-            state = STATE.PLAYER_IDLE;
+            state = STATE.Idle;
 
             return;
 
@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour {
 
         if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y)) {
 
-            state = STATE.PLAYER_FALLING;
+            state = STATE.Falling;
 
             return;
 
@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour {
 
             JumpingEnter();
 
-            state = STATE.PLAYER_JUMPING;
+            state = STATE.Jumping;
 
             return;
 
@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour {
 
             JumpingEnter();
 
-            state = STATE.PLAYER_JUMPING;
+            state = STATE.Jumping;
 
             return;
 
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour {
 
             WallSlideEnter();
 
-            state = STATE.PLAYER_WALL_SLIDE;
+            state = STATE.WallSlide;
 
             return;
 
@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour {
 
         if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
 
-            state = STATE.PLAYER_RUNNING;
+            state = STATE.Running;
 
             return;
 
@@ -295,7 +295,7 @@ public class PlayerController : MonoBehaviour {
 
             JumpingEnter();
 
-            state = STATE.PLAYER_JUMPING;
+            state = STATE.Jumping;
 
             return;
 
@@ -306,7 +306,7 @@ public class PlayerController : MonoBehaviour {
 
             WallSlideEnter();
 
-            state = STATE.PLAYER_WALL_SLIDE;
+            state = STATE.WallSlide;
 
             return;
 
@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour {
 
             FallingEnter();
 
-            state = STATE.PLAYER_FALLING;
+            state = STATE.Falling;
 
             return;
 
@@ -348,7 +348,7 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJump) {
 
-            state = STATE.PLAYER_WALL_JUMP;
+            state = STATE.WallJump;
 
             return;
 
@@ -357,7 +357,7 @@ public class PlayerController : MonoBehaviour {
         if ((!hitRight.HasValue || hitRight.Value.x != gameObject.transform.position.x) &&
             (!hitLeft.HasValue || hitLeft.Value.x != gameObject.transform.position.x)) {
 
-            state = STATE.PLAYER_FALLING;
+            state = STATE.Falling;
 
             return;
 
@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
-            state = STATE.PLAYER_WALL_DISMOUNT;
+            state = STATE.WallDismount;
 
             return;
 
@@ -373,7 +373,7 @@ public class PlayerController : MonoBehaviour {
 
         if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
 
-            state = STATE.PLAYER_IDLE;
+            state = STATE.Idle;
 
             return;
 
@@ -389,7 +389,7 @@ public class PlayerController : MonoBehaviour {
 
         JumpingEnter();
 
-        state = STATE.PLAYER_JUMPING;
+        state = STATE.Jumping;
 
     }
 
@@ -401,7 +401,7 @@ public class PlayerController : MonoBehaviour {
 
         FallingEnter();
 
-        state = STATE.PLAYER_FALLING;
+        state = STATE.Falling;
 
     }
 
