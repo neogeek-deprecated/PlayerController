@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour {
 
             Debug.Log(string.Format("Switched from {0} to {1}.", _state, value));
 
+            Invoke(value.ToString() + "Enter", 0);
+
             _state = value;
 
         }
@@ -121,8 +123,6 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJump) {
 
-            JumpingEnter();
-
             state = STATE.Jumping;
 
             return;
@@ -165,8 +165,6 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJump) {
 
-            JumpingEnter();
-
             state = STATE.Jumping;
 
             return;
@@ -201,8 +199,6 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJumpsAvalible > 0 && inputJump) {
 
-            JumpingEnter();
-
             state = STATE.Jumping;
 
             return;
@@ -211,8 +207,6 @@ public class PlayerController : MonoBehaviour {
 
         if ((hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
             (hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x)) {
-
-            WallSlideEnter();
 
             state = STATE.WallSlide;
 
@@ -260,8 +254,6 @@ public class PlayerController : MonoBehaviour {
 
         if (inputJumpsAvalible > 0 && inputJump) {
 
-            JumpingEnter();
-
             state = STATE.Jumping;
 
             return;
@@ -271,8 +263,6 @@ public class PlayerController : MonoBehaviour {
         if ((hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
             (hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x)) {
 
-            WallSlideEnter();
-
             state = STATE.WallSlide;
 
             return;
@@ -280,8 +270,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         if ((hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) || velocity.y <= 0) {
-
-            FallingEnter();
 
             state = STATE.Falling;
 
@@ -354,8 +342,6 @@ public class PlayerController : MonoBehaviour {
 
         velocity.x = horizontalDirection * horizontalSpeed;
 
-        JumpingEnter();
-
         state = STATE.Jumping;
 
     }
@@ -365,8 +351,6 @@ public class PlayerController : MonoBehaviour {
         Flip();
 
         velocity.x = inputHorizontal * horizontalSpeed;
-
-        FallingEnter();
 
         state = STATE.Falling;
 
