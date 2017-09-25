@@ -181,12 +181,6 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void FallingEnter() {
-
-        velocity.y = 0;
-
-    }
-
     void Falling() {
 
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
