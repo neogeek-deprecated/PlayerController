@@ -100,13 +100,13 @@ public class PlayerController : MonoBehaviour {
 
     void Idle() {
 
-        velocity = Vector2.zero;
-
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
             Flip();
 
         }
+
+        velocity = Vector2.zero;
 
         if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > gameObject.transform.position.x) ||
             inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < gameObject.transform.position.x)) {
@@ -143,14 +143,14 @@ public class PlayerController : MonoBehaviour {
 
     void Running() {
 
-        velocity.x = inputHorizontal * horizontalSpeed;
-        velocity.y = 0;
-
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
             Flip();
 
         }
+
+        velocity.x = inputHorizontal * horizontalSpeed;
+        velocity.y = 0;
 
         gameObject.transform.position = Move();
 
@@ -189,15 +189,15 @@ public class PlayerController : MonoBehaviour {
 
     void Falling() {
 
-        if (Mathf.Abs(inputHorizontal) > 0) {
-
-            velocity.x = inputHorizontal * horizontalSpeed;
-
-        }
-
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
             Flip();
+
+        }
+
+        if (Mathf.Abs(inputHorizontal) > 0) {
+
+            velocity.x = inputHorizontal * horizontalSpeed;
 
         }
 
