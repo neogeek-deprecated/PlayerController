@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour {
 
         Invoke(state.ToString(), 0);
 
+        Invoke("ResetInputVariables", 0);
+
     }
 
     void IdleEnter() {
@@ -227,8 +229,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void JumpingEnter() {
-
-        _inputJump = false;
 
         inputJumpsAvalible -= 1;
 
@@ -486,6 +486,12 @@ public class PlayerController : MonoBehaviour {
         }
 
         return position;
+
+    }
+
+    void ResetInputVariables() {
+
+        _inputJump = false;
 
     }
 
