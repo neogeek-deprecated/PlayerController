@@ -273,6 +273,8 @@ public class PlayerController : MonoBehaviour {
 
         if ((hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) || velocity.y <= 0) {
 
+            velocity.y = 0;
+
             state = STATE.Falling;
 
             return;
