@@ -68,6 +68,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void Start() {
+
+        state = STATE.Idle;
+
+    }
+
     void Update() {
 
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0) {
