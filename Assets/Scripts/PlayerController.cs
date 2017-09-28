@@ -100,13 +100,13 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void IdleEnter() {
+    private void IdleEnter() {
 
         inputJumpsAvalible = maxAvalibleJumps;
 
     }
 
-    void Idle() {
+    private void Idle() {
 
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
@@ -143,13 +143,13 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void RunningEnter() {
+    private void RunningEnter() {
 
         inputJumpsAvalible = maxAvalibleJumps;
 
     }
 
-    void Running() {
+    private void Running() {
 
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Falling() {
+    private void Falling() {
 
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void JumpingEnter() {
+    private void JumpingEnter() {
 
         inputJumpsAvalible -= 1;
 
@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Jumping() {
+    private void Jumping() {
 
         if (Mathf.Abs(inputHorizontal) > 0) {
 
@@ -289,7 +289,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void WallSlideEnter() {
+    private void WallSlideEnter() {
 
         inputJumpsAvalible = maxAvalibleJumps;
 
@@ -297,7 +297,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void WallSlide() {
+    private void WallSlide() {
 
         if (velocity.y > 0) {
 
@@ -346,7 +346,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void WallJump() {
+    private void WallJump() {
 
         Flip();
 
@@ -356,7 +356,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void WallDismount() {
+    private void WallDismount() {
 
         Flip();
 
@@ -366,7 +366,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void Flip() {
+    private void Flip() {
 
         Vector3 scale = gameObject.transform.localScale;
         horizontalDirection *= -1;
@@ -375,7 +375,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void UpdateHitVectors() {
+    private void UpdateHitVectors() {
 
         Bounds colliderBounds = gameObject.GetComponent<BoxCollider2D>().bounds;
 
@@ -461,7 +461,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    Vector2 Move() {
+    private Vector2 Move() {
 
         Vector2 position = gameObject.transform.position;
 
@@ -495,13 +495,13 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void ResetInputVariables() {
+    private void ResetInputVariables() {
 
         _inputJump = false;
 
     }
 
-    void OnDrawGizmos() {
+    private void OnDrawGizmos() {
 
         Bounds colliderBounds = gameObject.GetComponent<BoxCollider2D>().bounds;
 
