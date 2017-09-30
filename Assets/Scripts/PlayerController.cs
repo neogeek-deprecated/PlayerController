@@ -235,7 +235,7 @@ public class PlayerController : MonoBehaviour {
 
         if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
 
-            state = STATE.Running;
+            state = STATE.Idle;
 
             return;
 
