@@ -360,7 +360,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
+        if (Mathf.Abs(inputHorizontal) > 0) {
 
             state = STATE.WallDismount;
 
