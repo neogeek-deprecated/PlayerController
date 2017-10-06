@@ -696,6 +696,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingLayerName: Player
   renderer: {fileID: 1035631287}
+--- !u!114 &904326668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 904326662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ff3169c38934e47b1762addf58b088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1035631287 stripped
 MeshRenderer:
   m_PrefabParentObject: {fileID: 23353374788664998, guid: 1c178768e4d174d60babc6b0b29b8e56,
