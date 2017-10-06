@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour {
 
     private readonly float wallSlideSpeed = -2.0f;
     private readonly float horizontalSpeed = 6.0f;
-    private readonly float jumpSpeed = 16.0f;
+    private readonly float jumpSpeed = 10.0f;
+    private readonly float highJumpSpeed = 15.0f;
     private readonly float gravityMultiplier = 2f;
     private readonly int maxAvalibleJumps = 2;
 
@@ -262,7 +263,19 @@ public class PlayerController : MonoBehaviour {
 
         inputJumpsAvalible -= 1;
 
-        velocity.y = jumpSpeed;
+        velocity.y = highJumpSpeed;
+
+        Invoke("SetJumpSpeed", 0.1f);
+
+    }
+
+    private void SetJumpSpeed() {
+
+        if (!inputJumpHeld) {
+
+            velocity.y -= highJumpSpeed - jumpSpeed;
+
+        }
 
     }
 
@@ -280,15 +293,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!inputJumpHeld) {
-
-            velocity.y += Physics2D.gravity.y * gravityMultiplier * Time.deltaTime;
-
-        } else {
-
-            velocity.y += Physics2D.gravity.y * Time.deltaTime;
-
-        }
+        velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
         gameObject.transform.position = Move();
 
