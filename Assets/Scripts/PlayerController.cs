@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (Mathf.Abs(inputHorizontal) > 0) {
+        if (inputHorizontal == -1 && !hitLeft.HasValue || inputHorizontal == 1 && !hitRight.HasValue) {
 
             state = STATE.WallDismount;
 
