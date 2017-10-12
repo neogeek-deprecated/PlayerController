@@ -287,15 +287,15 @@ public class PlayerController : MonoBehaviour {
 
     private void Jumping() {
 
-        if (Mathf.Abs(inputHorizontal) > 0) {
-
-            velocity.x = inputHorizontal * horizontalSpeed;
-
-        }
-
         if (Mathf.Abs(inputHorizontal) > 0 && inputHorizontal != horizontalDirection) {
 
             Flip();
+
+        }
+
+        if (Mathf.Abs(inputHorizontal) > 0) {
+
+            velocity.x = inputHorizontal * horizontalSpeed;
 
         }
 
