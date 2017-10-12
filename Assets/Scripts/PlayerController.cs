@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
     private readonly float wallSlideSpeed = -2.0f;
     private readonly float horizontalSpeed = 6.0f;
-    private readonly float jumpSpeed = 10.0f;
+    private readonly float lowJumpSpeed = 10.0f;
     private readonly float highJumpSpeed = 15.0f;
     private readonly float gravityMultiplier = 2f;
     private readonly int maxAvalibleJumps = 2;
@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour {
 
         if (!inputJumpHeld) {
 
-            velocity.y -= highJumpSpeed - jumpSpeed;
+            velocity.y -= highJumpSpeed - lowJumpSpeed;
 
         }
 
