@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof (BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : MonoBehaviour {
 
     public LayerMask leftLayerMask;
