@@ -139,7 +139,13 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        velocity = Vector2.zero;
+        velocity.y = 0;
+
+        if (inputHorizontal == 0) {
+
+            velocity.x = 0;
+
+        }
 
         if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > gameObject.transform.position.x) ||
             inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < gameObject.transform.position.x)) {
