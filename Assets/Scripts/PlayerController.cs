@@ -438,6 +438,8 @@ public class PlayerController : MonoBehaviour {
         scale.x *= -1;
         gameObject.transform.localScale = scale;
 
+        velocity.x = 0;
+
     }
 
     private void UpdateHitVectors() {
