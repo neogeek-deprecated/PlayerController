@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Mathf.Abs(inputHorizontal) > 0) {
 
-            velocity.x = inputHorizontal * horizontalSpeed;
+            velocity.x = Mathf.Lerp(velocity.x, inputHorizontal * horizontalSpeed, Time.deltaTime * horizontalSpeed);
 
         }
 
@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Mathf.Abs(inputHorizontal) > 0) {
 
-            velocity.x = inputHorizontal * horizontalSpeed;
+            velocity.x = Mathf.Lerp(velocity.x, inputHorizontal * horizontalSpeed, Time.deltaTime * horizontalSpeed);
 
         } else if (velocity.x > 0) {
 
@@ -309,7 +309,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Mathf.Abs(inputHorizontal) > 0) {
 
-            velocity.x = inputHorizontal * horizontalSpeed;
+            velocity.x = Mathf.Lerp(velocity.x, inputHorizontal * horizontalSpeed, Time.deltaTime * horizontalSpeed);
 
         } else if (velocity.x > 0) {
 
