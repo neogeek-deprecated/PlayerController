@@ -195,8 +195,6 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        velocity.y = 0;
-
         gameObject.transform.position = Move();
 
         if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
