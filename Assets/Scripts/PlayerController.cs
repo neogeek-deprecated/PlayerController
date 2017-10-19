@@ -154,8 +154,8 @@ public class PlayerController : MonoBehaviour {
 
         position = Move();
 
-        if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > gameObject.transform.position.x) ||
-            inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < gameObject.transform.position.x)) {
+        if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > position.x) ||
+            inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < position.x)) {
 
             state = STATE.Running;
 
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y)) {
+        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < position.y)) {
 
             state = STATE.Falling;
 
@@ -203,8 +203,8 @@ public class PlayerController : MonoBehaviour {
 
         position = Move();
 
-        if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
-            (hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x)) {
+        if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value.x == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
 
             state = STATE.Idle;
 
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < gameObject.transform.position.y)) {
+        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < position.y)) {
 
             state = STATE.Falling;
 
@@ -264,8 +264,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
-            (hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x)) {
+        if ((hitRight.HasValue && hitRight.Value.x == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
 
             state = STATE.WallSlide;
 
@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
+        if (hitBottom.HasValue && hitBottom.Value.y == position.y) {
 
             state = STATE.Idle;
 
@@ -337,8 +337,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((hitRight.HasValue && hitRight.Value.x == gameObject.transform.position.x) ||
-            (hitLeft.HasValue && hitLeft.Value.x == gameObject.transform.position.x)) {
+        if ((hitRight.HasValue && hitRight.Value.x == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
 
             state = STATE.WallSlide;
 
@@ -346,7 +346,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((hitTop.HasValue && hitTop.Value.y == gameObject.transform.position.y) || velocity.y <= 0) {
+        if ((hitTop.HasValue && hitTop.Value.y == position.y) || velocity.y <= 0) {
 
             velocity.y = 0;
 
@@ -388,8 +388,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((!hitRight.HasValue || hitRight.Value.x != gameObject.transform.position.x) &&
-            (!hitLeft.HasValue || hitLeft.Value.x != gameObject.transform.position.x)) {
+        if ((!hitRight.HasValue || hitRight.Value.x != position.x) &&
+            (!hitLeft.HasValue || hitLeft.Value.x != position.x)) {
 
             state = STATE.Falling;
 
@@ -405,7 +405,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.HasValue && hitBottom.Value.y == gameObject.transform.position.y) {
+        if (hitBottom.HasValue && hitBottom.Value.y == position.y) {
 
             state = STATE.Idle;
 
