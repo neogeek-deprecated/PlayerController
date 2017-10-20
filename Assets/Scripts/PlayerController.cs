@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private readonly float wallSlideSpeed = -2.0f;
-    private readonly float horizontalSpeed = 6.0f;
+    private readonly float horizontalSpeed = 7.0f;
     private readonly float horizontalResistance = 0.02f;
     private readonly float lowJumpSpeed = 10.0f;
     private readonly float highJumpSpeed = 15.0f;
