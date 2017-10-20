@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour {
     private Vector2? hitTop;
     private Vector2? hitBottom;
 
+    private float hitBottomBoxColliderFriction = 0;
+
     private bool _inputJumpPressed = false;
     private bool inputJumpPressed {
         get {
@@ -144,11 +146,11 @@ public class PlayerController : MonoBehaviour {
 
         if (velocity.x > 0) {
 
-            velocity.x = Mathf.Max(velocity.x - boxCollider.friction, 0);
+            velocity.x = Mathf.Max(velocity.x - hitBottomBoxColliderFriction, 0);
 
         } else if (velocity.x < 0) {
 
-            velocity.x = Mathf.Min(velocity.x + boxCollider.friction, 0);
+            velocity.x = Mathf.Min(velocity.x + hitBottomBoxColliderFriction, 0);
 
         }
 
@@ -522,9 +524,13 @@ public class PlayerController : MonoBehaviour {
 
             hitBottom = new Vector2(0, hitBottomRay.collider.bounds.max.y + colliderBounds.extents.y);
 
+            hitBottomBoxColliderFriction = hitBottomRay.collider.friction;
+
         } else {
 
             hitBottom = null;
+
+            hitBottomBoxColliderFriction = 0;
 
         }
 
