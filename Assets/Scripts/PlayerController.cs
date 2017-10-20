@@ -38,12 +38,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private readonly float wallSlideSpeed = -2.0f;
     private readonly float horizontalSpeed = 7.0f;
     private readonly float horizontalResistance = 0.02f;
     private readonly float lowJumpSpeed = 10.0f;
     private readonly float highJumpSpeed = 15.0f;
     private readonly float gravityMultiplier = 2f;
+    private readonly float wallSlideSpeed = -2.0f;
     private readonly int maxAvalibleJumps = 2;
 
     private BoxCollider2D boxCollider;
@@ -51,10 +51,10 @@ public class PlayerController : MonoBehaviour {
     private Vector2 position = Vector2.zero;
     private Vector2 velocity = Vector2.zero;
 
-    private int horizontalDirection = 1;
-
     private float inputHorizontal = 0;
     private int inputJumpsAvalible = 0;
+
+    private int horizontalDirection = 1;
 
     private Vector2? hitLeft;
     private Vector2? hitRight;
