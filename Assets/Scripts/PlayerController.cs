@@ -423,15 +423,7 @@ public class PlayerController : MonoBehaviour {
 
     private void WallJump() {
 
-        if (hitLeft.HasValue) {
-
-            horizontalDirection = 1;
-
-        } else if (hitRight.HasValue) {
-
-            horizontalDirection = -1;
-
-        }
+        Flip();
 
         velocity.x = horizontalDirection * horizontalSpeed;
 
