@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour {
 
     private BoxCollider2D boxCollider;
 
-    private Vector2 position = Vector2.zero;
+    public Vector2 position = Vector2.zero;
     private Vector2 velocity = Vector2.zero;
 
     private float inputHorizontal = 0;

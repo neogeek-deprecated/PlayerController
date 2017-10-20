@@ -4,15 +4,19 @@ public class Reset : MonoBehaviour {
 
     private Vector3 originalPosition;
 
+    private PlayerController playerController;
+
     void Awake() {
 
         originalPosition = gameObject.transform.position;
+
+        playerController = gameObject.GetComponent<PlayerController>();
 
     }
 
     void Update() {
 
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        if (Input.GetKeyDown(KeyCode.R)) {
 
             ResetGameObject();
 
@@ -22,7 +26,7 @@ public class Reset : MonoBehaviour {
 
     void ResetGameObject() {
 
-        gameObject.transform.position = originalPosition;
+        playerController.position = originalPosition;
 
     }
 
