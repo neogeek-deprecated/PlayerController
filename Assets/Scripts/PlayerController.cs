@@ -353,8 +353,6 @@ public class PlayerController : MonoBehaviour {
 
         inputJumpsAvalible = maxAvalibleJumps;
 
-        velocity.x = 0;
-
     }
 
     private void WallSlide() {
