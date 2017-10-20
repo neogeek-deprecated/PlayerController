@@ -142,8 +142,6 @@ public class PlayerController : MonoBehaviour {
 
     private void Idle() {
 
-        velocity.y = 0;
-
         if (velocity.x > 0) {
 
             velocity.x = Mathf.Max(velocity.x - hitBottomBoxColliderFriction, 0);
