@@ -142,8 +142,6 @@ public class PlayerController : MonoBehaviour {
 
     private void Idle() {
 
-        velocity.y = 0;
-
         if (velocity.x > 0) {
 
             velocity.x = Mathf.Max(velocity.x - hitBottomBoxColliderFriction, 0);
@@ -153,6 +151,8 @@ public class PlayerController : MonoBehaviour {
             velocity.x = Mathf.Min(velocity.x + hitBottomBoxColliderFriction, 0);
 
         }
+
+        velocity.y = 0;
 
         position = Move();
 
@@ -197,13 +197,13 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        velocity.y = 0;
-
         if (Mathf.Abs(inputHorizontal) > 0) {
 
             velocity.x = Mathf.Lerp(velocity.x, inputHorizontal * horizontalSpeed, Time.deltaTime * horizontalSpeed);
 
         }
+
+        velocity.y = 0;
 
         position = Move();
 
@@ -371,6 +371,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void WallSlide() {
+
+        velocity.x = 0;
 
         if (inputHorizontal == 0) {
 
