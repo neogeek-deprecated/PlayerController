@@ -372,7 +372,7 @@ public class PlayerController : MonoBehaviour {
 
         if (velocity.y > 0 || inputHorizontal == 0) {
 
-            velocity.y += Physics2D.gravity.y * Time.deltaTime;
+            velocity.y += Physics2D.gravity.y * gravityMultiplier * Time.deltaTime;
 
         } else {
 
