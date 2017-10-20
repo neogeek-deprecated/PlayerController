@@ -339,8 +339,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((hitRight.HasValue && hitRight.Value.x == position.x) ||
-            (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
+        if (((hitRight.HasValue && hitRight.Value.x == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value.x == position.x)) && velocity.y <= 0) {
 
             state = STATE.WallSlide;
 
