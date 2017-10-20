@@ -142,6 +142,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Idle() {
 
+        velocity.y = 0;
+
         if (velocity.x > 0) {
 
             velocity.x = Mathf.Max(velocity.x - hitBottomBoxColliderFriction, 0);
@@ -194,6 +196,8 @@ public class PlayerController : MonoBehaviour {
             Flip();
 
         }
+
+        velocity.y = 0;
 
         if (Mathf.Abs(inputHorizontal) > 0) {
 
@@ -353,6 +357,8 @@ public class PlayerController : MonoBehaviour {
 
         inputJumpsAvalible = maxAvalibleJumps;
 
+        velocity.y = 0;
+
     }
 
     private void WallSlide() {
@@ -406,7 +412,15 @@ public class PlayerController : MonoBehaviour {
 
     private void WallJump() {
 
-        Flip();
+        if (hitLeft.HasValue) {
+
+            horizontalDirection = 1;
+
+        } else if (hitRight.HasValue) {
+
+            horizontalDirection = -1;
+
+        }
 
         velocity.x = horizontalDirection * horizontalSpeed;
 
@@ -415,8 +429,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void WallDismount() {
-
-        Flip();
 
         velocity.x = inputHorizontal * horizontalSpeed;
 
