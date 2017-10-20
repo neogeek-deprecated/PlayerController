@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour {
 
     private void WallSlide() {
 
-        if (velocity.y > 0) {
+        if (velocity.y > 0 || inputHorizontal == 0) {
 
             velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
