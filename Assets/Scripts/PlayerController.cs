@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0) {
 
-            inputHorizontal = Mathf.Sign(Input.GetAxisRaw("Horizontal"));
+            inputHorizontal = Input.GetAxisRaw("Horizontal");
 
         } else {
 
