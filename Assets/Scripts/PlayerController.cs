@@ -333,6 +333,15 @@ public class PlayerController : MonoBehaviour {
 
         position = Move();
 
+        if (inputJumpPressed && ((hitRight.HasValue && hitRight.Value.x == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value.x == position.x))) {
+
+            state = STATE.WallJump;
+
+            return;
+
+        }
+
         if (inputJumpsAvalible > 0 && inputJumpPressed) {
 
             state = STATE.Jumping;
