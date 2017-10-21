@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour {
 
         velocity.y = 0;
 
-        position = Move();
+        position = Move(position, velocity);
 
         if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > position.x) ||
             inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < position.x)) {
@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour {
 
         velocity.y = 0;
 
-        position = Move();
+        position = Move(position, velocity);
 
         if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value.x == position.x) ||
             (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour {
 
         velocity.y += Physics2D.gravity.y * gravityMultiplier * Time.deltaTime;
 
-        position = Move();
+        position = Move(position, velocity);
 
         if (inputJumpsAvalible > 0 && inputJumpPressed) {
 
@@ -331,7 +331,7 @@ public class PlayerController : MonoBehaviour {
 
         velocity.y += Physics2D.gravity.y * Time.deltaTime;
 
-        position = Move();
+        position = Move(position, velocity);
 
         if (inputJumpPressed && ((hitRight.HasValue && hitRight.Value.x == position.x) ||
                 (hitLeft.HasValue && hitLeft.Value.x == position.x))) {
@@ -384,7 +384,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        position = Move();
+        position = Move(position, velocity);
 
         if (inputJumpPressed) {
 
@@ -538,11 +538,11 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    private Vector2 Move() {
+    private Vector2 Move(Vector2 currentPosition, Vector2 currentVelocity) {
 
-        Vector2 nextPosition = position;
+        Vector2 nextPosition = currentPosition;
 
-        nextPosition += velocity * Time.deltaTime;
+        nextPosition += currentVelocity * Time.deltaTime;
 
         if (hitLeft.HasValue) {
 
