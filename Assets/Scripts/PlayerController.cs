@@ -498,7 +498,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitLeft = null;
+            hitLeft = new Vector2(Mathf.NegativeInfinity, 0);
 
         }
 
@@ -508,7 +508,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitRight = null;
+            hitRight = new Vector2(Mathf.Infinity, 0);
 
         }
 
@@ -518,7 +518,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitTop = null;
+            hitTop = new Vector2(0, Mathf.Infinity);
 
         }
 
@@ -530,7 +530,7 @@ public class PlayerController : MonoBehaviour {
 
         } else {
 
-            hitBottom = null;
+            hitBottom = new Vector2(0, Mathf.NegativeInfinity);
 
             hitBottomBoxColliderFriction = 0;
 
@@ -544,29 +544,8 @@ public class PlayerController : MonoBehaviour {
 
         nextPosition += currentVelocity * Time.deltaTime;
 
-        if (hitLeft.HasValue) {
-
-            nextPosition.x = Mathf.Max(nextPosition.x, hitLeft.Value.x);
-
-        }
-
-        if (hitRight.HasValue) {
-
-            nextPosition.x = Mathf.Min(nextPosition.x, hitRight.Value.x);
-
-        }
-
-        if (hitTop.HasValue) {
-
-            nextPosition.y = Mathf.Min(nextPosition.y, hitTop.Value.y);
-
-        }
-
-        if (hitBottom.HasValue) {
-
-            nextPosition.y = Mathf.Max(nextPosition.y, hitBottom.Value.y);
-
-        }
+        nextPosition.x = Mathf.Clamp(nextPosition.x, hitLeft.Value.x, hitRight.Value.x);
+        nextPosition.y = Mathf.Clamp(nextPosition.y, hitBottom.Value.y, hitTop.Value.y);
 
         return nextPosition;
 
