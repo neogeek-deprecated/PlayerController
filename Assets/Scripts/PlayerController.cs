@@ -56,10 +56,10 @@ public class PlayerController : MonoBehaviour {
 
     private int horizontalDirection = 1;
 
-    private Vector2? hitLeft;
-    private Vector2? hitRight;
-    private Vector2? hitTop;
-    private Vector2? hitBottom;
+    private float? hitLeft;
+    private float? hitRight;
+    private float? hitTop;
+    private float? hitBottom;
 
     private float hitBottomBoxColliderFriction = 0;
 
@@ -156,8 +156,8 @@ public class PlayerController : MonoBehaviour {
 
         position = Move(position, velocity);
 
-        if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value.x > position.x) ||
-            inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value.x < position.x)) {
+        if (inputHorizontal == 1 && (!hitRight.HasValue || hitRight.HasValue && hitRight.Value > position.x) ||
+            inputHorizontal == -1 && (!hitLeft.HasValue || hitLeft.HasValue && hitLeft.Value < position.x)) {
 
             state = STATE.Running;
 
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < position.y)) {
+        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value < position.y)) {
 
             state = STATE.Falling;
 
@@ -207,8 +207,8 @@ public class PlayerController : MonoBehaviour {
 
         position = Move(position, velocity);
 
-        if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value.x == position.x) ||
-            (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
+        if (inputHorizontal == 0 || (hitRight.HasValue && hitRight.Value == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value == position.x)) {
 
             state = STATE.Idle;
 
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value.y < position.y)) {
+        if (!hitBottom.HasValue || (hitBottom.HasValue && hitBottom.Value < position.y)) {
 
             state = STATE.Falling;
 
@@ -268,8 +268,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((hitRight.HasValue && hitRight.Value.x == position.x) ||
-            (hitLeft.HasValue && hitLeft.Value.x == position.x)) {
+        if ((hitRight.HasValue && hitRight.Value == position.x) ||
+            (hitLeft.HasValue && hitLeft.Value == position.x)) {
 
             state = STATE.WallSlide;
 
@@ -277,7 +277,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.HasValue && hitBottom.Value.y == position.y) {
+        if (hitBottom.HasValue && hitBottom.Value == position.y) {
 
             state = STATE.Idle;
 
@@ -333,8 +333,8 @@ public class PlayerController : MonoBehaviour {
 
         position = Move(position, velocity);
 
-        if (inputJumpPressed && ((hitRight.HasValue && hitRight.Value.x == position.x) ||
-                (hitLeft.HasValue && hitLeft.Value.x == position.x))) {
+        if (inputJumpPressed && ((hitRight.HasValue && hitRight.Value == position.x) ||
+                (hitLeft.HasValue && hitLeft.Value == position.x))) {
 
             state = STATE.WallJump;
 
@@ -350,7 +350,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((hitTop.HasValue && hitTop.Value.y == position.y) || velocity.y <= 0) {
+        if ((hitTop.HasValue && hitTop.Value == position.y) || velocity.y <= 0) {
 
             velocity.y = 0;
 
@@ -394,8 +394,8 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if ((!hitRight.HasValue || hitRight.Value.x != position.x) &&
-            (!hitLeft.HasValue || hitLeft.Value.x != position.x)) {
+        if ((!hitRight.HasValue || hitRight.Value != position.x) &&
+            (!hitLeft.HasValue || hitLeft.Value != position.x)) {
 
             state = STATE.Falling;
 
@@ -411,7 +411,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (hitBottom.HasValue && hitBottom.Value.y == position.y) {
+        if (hitBottom.HasValue && hitBottom.Value == position.y) {
 
             state = STATE.Idle;
 
@@ -494,43 +494,43 @@ public class PlayerController : MonoBehaviour {
 
         if (hitLeftRay && hitLeftRay.collider.bounds.min.x <= colliderBounds.max.x) {
 
-            hitLeft = new Vector2(hitLeftRay.collider.bounds.max.x + colliderBounds.extents.x, 0);
+            hitLeft = hitLeftRay.collider.bounds.max.x + colliderBounds.extents.x;
 
         } else {
 
-            hitLeft = new Vector2(Mathf.NegativeInfinity, 0);
+            hitLeft = Mathf.NegativeInfinity;
 
         }
 
         if (hitRightRay && hitRightRay.collider.bounds.max.x >= colliderBounds.min.x) {
 
-            hitRight = new Vector2(hitRightRay.collider.bounds.min.x - colliderBounds.extents.x, 0);
+            hitRight = hitRightRay.collider.bounds.min.x - colliderBounds.extents.x;
 
         } else {
 
-            hitRight = new Vector2(Mathf.Infinity, 0);
+            hitRight = Mathf.Infinity;
 
         }
 
         if (hitTopRay && hitTopRay.collider.bounds.min.y >= colliderBounds.max.y) {
 
-            hitTop = new Vector2(0, hitTopRay.collider.bounds.min.y - colliderBounds.extents.y);
+            hitTop = hitTopRay.collider.bounds.min.y - colliderBounds.extents.y;
 
         } else {
 
-            hitTop = new Vector2(0, Mathf.Infinity);
+            hitTop = Mathf.Infinity;
 
         }
 
         if (hitBottomRay && hitBottomRay.collider.bounds.max.y <= colliderBounds.min.y) {
 
-            hitBottom = new Vector2(0, hitBottomRay.collider.bounds.max.y + colliderBounds.extents.y);
+            hitBottom = hitBottomRay.collider.bounds.max.y + colliderBounds.extents.y;
 
             hitBottomBoxColliderFriction = hitBottomRay.collider.friction;
 
         } else {
 
-            hitBottom = new Vector2(0, Mathf.NegativeInfinity);
+            hitBottom = Mathf.NegativeInfinity;
 
             hitBottomBoxColliderFriction = 0;
 
@@ -544,8 +544,8 @@ public class PlayerController : MonoBehaviour {
 
         nextPosition += currentVelocity * Time.deltaTime;
 
-        nextPosition.x = Mathf.Clamp(nextPosition.x, hitLeft.Value.x, hitRight.Value.x);
-        nextPosition.y = Mathf.Clamp(nextPosition.y, hitBottom.Value.y, hitTop.Value.y);
+        nextPosition.x = Mathf.Clamp(nextPosition.x, hitLeft.Value, hitRight.Value);
+        nextPosition.y = Mathf.Clamp(nextPosition.y, hitBottom.Value, hitTop.Value);
 
         return nextPosition;
 
