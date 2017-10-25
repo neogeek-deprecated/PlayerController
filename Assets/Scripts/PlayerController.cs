@@ -417,6 +417,12 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    private void WallJumpEnter() {
+
+        inputJumpsAvalible = maxAvalibleJumps;
+
+    }
+
     private void WallJump() {
 
         Flip();
