@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
         Falling,
         Jumping,
         WallSlide,
+        WallStick,
         WallJump,
         WallDismount
     }
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour {
     private readonly float highJumpSpeed = 15.0f;
     private readonly float gravityMultiplier = 2f;
     private readonly float wallSlideSpeed = -2.0f;
+    private readonly WaitForSeconds wallStickTransitionDelay = new WaitForSeconds(0.2f);
     private readonly int maxAvalibleJumps = 2;
 
     private BoxCollider2D boxCollider;
@@ -269,7 +271,15 @@ public class PlayerController : MonoBehaviour {
 
         if (hitRight == position.x || hitLeft == position.x) {
 
-            state = STATE.WallSlide;
+            if (Mathf.Abs(velocity.x) > 0) {
+
+                state = STATE.WallStick;
+
+            } else {
+
+                state = STATE.WallSlide;
+
+            }
 
             return;
 
@@ -356,6 +366,68 @@ public class PlayerController : MonoBehaviour {
             return;
 
         }
+
+    }
+
+    private void WallStickEnter() {
+
+        StartCoroutine("WallStickTransition");
+
+    }
+
+    private void WallStick() {
+
+        velocity.y = wallSlideSpeed;
+
+        position = Move(position, velocity);
+
+        if (inputJumpPressed) {
+
+            StopCoroutine("WallStickTransition");
+
+            state = STATE.WallJump;
+
+            return;
+
+        }
+
+        if (hitRight != position.x && hitLeft != position.x) {
+
+            StopCoroutine("WallStickTransition");
+
+            state = STATE.Falling;
+
+            return;
+
+        }
+
+        if ((inputHorizontal == -1 && hitLeft == Mathf.NegativeInfinity) || (inputHorizontal == 1 && hitRight == Mathf.Infinity)) {
+
+            StopCoroutine("WallStickTransition");
+
+            state = STATE.WallDismount;
+
+            return;
+
+        }
+
+        if (hitBottom == position.y) {
+
+            StopCoroutine("WallStickTransition");
+
+            state = STATE.Idle;
+
+            return;
+
+        }
+
+    }
+
+    private IEnumerator WallStickTransition() {
+
+        yield return wallStickTransitionDelay;
+
+        state = STATE.WallSlide;
 
     }
 
