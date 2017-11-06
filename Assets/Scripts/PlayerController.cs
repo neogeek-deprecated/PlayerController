@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
     private readonly float gravityMultiplier = 2f;
     private readonly float wallSlideSpeed = -2.0f;
     private readonly WaitForSeconds wallStickTransitionDelay = new WaitForSeconds(0.2f);
-    private readonly int maxAvalibleJumps = 2;
+    private readonly int maxAvailableJumps = 2;
 
     private BoxCollider2D boxCollider;
 
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
     private Vector2 velocity = Vector2.zero;
 
     private float inputHorizontal = 0;
-    private int inputJumpsAvalible = 0;
+    private int inputJumpsAvailable = 0;
 
     private int horizontalDirection = 1;
 
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
 
     private void IdleEnter() {
 
-        inputJumpsAvalible = maxAvalibleJumps;
+        inputJumpsAvailable = maxAvailableJumps;
 
     }
 
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour {
 
     private void RunningEnter() {
 
-        inputJumpsAvalible = maxAvalibleJumps;
+        inputJumpsAvailable = maxAvailableJumps;
 
     }
 
@@ -261,7 +261,7 @@ public class PlayerController : MonoBehaviour {
 
         position = MoveStep(position, velocity);
 
-        if (inputJumpsAvalible > 0 && inputJumpPressed) {
+        if (inputJumpsAvailable > 0 && inputJumpPressed) {
 
             state = STATE.Jumping;
 
@@ -297,7 +297,7 @@ public class PlayerController : MonoBehaviour {
 
     private void JumpingEnter() {
 
-        inputJumpsAvalible -= 1;
+        inputJumpsAvailable -= 1;
 
         velocity.y = highJumpSpeed;
 
@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (inputJumpsAvalible > 0 && inputJumpPressed) {
+        if (inputJumpsAvailable > 0 && inputJumpPressed) {
 
             state = STATE.Jumping;
 
@@ -439,7 +439,7 @@ public class PlayerController : MonoBehaviour {
 
     private void WallSlideEnter() {
 
-        inputJumpsAvalible = maxAvalibleJumps;
+        inputJumpsAvailable = maxAvailableJumps;
 
         velocity.y = 0;
 
@@ -497,7 +497,7 @@ public class PlayerController : MonoBehaviour {
 
     private void WallJump() {
 
-        inputJumpsAvalible = maxAvalibleJumps;
+        inputJumpsAvailable = maxAvailableJumps;
 
         Flip();
 
