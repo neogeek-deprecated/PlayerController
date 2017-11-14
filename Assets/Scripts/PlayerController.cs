@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour {
     void Awake() {
 
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        boxCollider.size = boxCollider.size * 0.95f;
 
         position = gameObject.transform.position;
 
@@ -530,11 +531,9 @@ public class PlayerController : MonoBehaviour {
 
         Bounds colliderBounds = boxCollider.bounds;
 
-        Vector2 rayCastSize = colliderBounds.size * 0.95f;
-
         RaycastHit2D hitLeftRay = Physics2D.BoxCast(
             new Vector2(colliderBounds.min.x - colliderBounds.extents.x, colliderBounds.center.y),
-            rayCastSize,
+            colliderBounds.size,
             0f,
             Vector2.left,
             0f,
@@ -543,7 +542,7 @@ public class PlayerController : MonoBehaviour {
 
         RaycastHit2D hitRightRay = Physics2D.BoxCast(
             new Vector2(colliderBounds.max.x + colliderBounds.extents.x, colliderBounds.center.y),
-            rayCastSize,
+            colliderBounds.size,
             0f,
             Vector2.right,
             0f,
@@ -552,7 +551,7 @@ public class PlayerController : MonoBehaviour {
 
         RaycastHit2D hitTopRay = Physics2D.BoxCast(
             new Vector2(colliderBounds.center.x, colliderBounds.max.y + colliderBounds.extents.y),
-            rayCastSize,
+            colliderBounds.size,
             0f,
             Vector2.up,
             0f,
@@ -561,7 +560,7 @@ public class PlayerController : MonoBehaviour {
 
         RaycastHit2D hitBottomRay = Physics2D.BoxCast(
             new Vector2(colliderBounds.center.x, colliderBounds.min.y - colliderBounds.extents.y),
-            rayCastSize,
+            colliderBounds.size,
             0f,
             Vector2.down,
             0f,

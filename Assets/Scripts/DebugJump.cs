@@ -43,10 +43,10 @@ public class DebugJump : MonoBehaviour {
         Bounds colliderBounds = gameObject.GetComponent<BoxCollider2D>().bounds;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawCube(new Vector2(colliderBounds.min.x - colliderBounds.extents.x, colliderBounds.center.y), colliderBounds.size * 0.95f);
-        Gizmos.DrawCube(new Vector2(colliderBounds.max.x + colliderBounds.extents.x, colliderBounds.center.y), colliderBounds.size * 0.95f);
-        Gizmos.DrawCube(new Vector2(colliderBounds.center.x, colliderBounds.max.y + colliderBounds.extents.y), colliderBounds.size * 0.95f);
-        Gizmos.DrawCube(new Vector2(colliderBounds.center.x, colliderBounds.min.y - colliderBounds.extents.y), colliderBounds.size * 0.95f);
+        Gizmos.DrawCube(new Vector2(colliderBounds.min.x - colliderBounds.extents.x, colliderBounds.center.y), colliderBounds.size);
+        Gizmos.DrawCube(new Vector2(colliderBounds.max.x + colliderBounds.extents.x, colliderBounds.center.y), colliderBounds.size);
+        Gizmos.DrawCube(new Vector2(colliderBounds.center.x, colliderBounds.max.y + colliderBounds.extents.y), colliderBounds.size);
+        Gizmos.DrawCube(new Vector2(colliderBounds.center.x, colliderBounds.min.y - colliderBounds.extents.y), colliderBounds.size);
 
     }
 
