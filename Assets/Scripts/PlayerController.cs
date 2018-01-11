@@ -5,10 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : MonoBehaviour {
 
-    public LayerMask leftLayerMask;
-    public LayerMask rightLayerMask;
-    public LayerMask topLayerMask;
-    public LayerMask bottomLayerMask;
+    [System.Serializable]
+    public struct LayerMaskGroup {
+        public LayerMask left;
+        public LayerMask right;
+        public LayerMask top;
+        public LayerMask bottom;
+    }
+
+    public LayerMaskGroup layerMask = new LayerMaskGroup();
 
     public enum STATE {
         Idle,
@@ -537,7 +542,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.left,
             0f,
-            leftLayerMask
+            layerMask.left
         );
 
         RaycastHit2D hitRightRay = Physics2D.BoxCast(
@@ -546,7 +551,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.right,
             0f,
-            rightLayerMask
+            layerMask.right
         );
 
         RaycastHit2D hitTopRay = Physics2D.BoxCast(
@@ -555,7 +560,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.up,
             0f,
-            topLayerMask
+            layerMask.top
         );
 
         RaycastHit2D hitBottomRay = Physics2D.BoxCast(
@@ -564,7 +569,7 @@ public class PlayerController : MonoBehaviour {
             0f,
             Vector2.down,
             0f,
-            bottomLayerMask
+            layerMask.bottom
         );
 
         if (hitLeftRay && hitLeftRay.collider.bounds.min.x <= colliderBounds.max.x) {
